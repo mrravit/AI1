@@ -83,12 +83,6 @@ class Graph:
         return False
 
     def __str__(self):
-        """
-            Define the way the nodes of graph will be printed.
-            Return
-            ------
-                str
-        """
         graph = ""
         for node in self.nodes:
             graph += f"{node.__str__()}\n"
@@ -96,8 +90,6 @@ class Graph:
 
 
 class Greedy:
-
-
     def __init__(self, graph, start_position, target):
         self.graph = graph
         self.start = graph.find_node(start_position)
@@ -106,7 +98,7 @@ class Greedy:
         self.closed = []
         self.number_of_steps = 0
 
-    def bangkok_distance(self, node1, node2):
+    def distance(self, node1, node2):
         return abs(node1.x - node2.x) + abs(node1.y - node2.y)
 
     def insert_to_list(self, list_category, node):
@@ -150,7 +142,8 @@ class Greedy:
             self.number_of_steps += 1
 
             if self.opened_is_empty():
-                print(f"No Solution Found after {self.number_of_steps} steps!!")
+                print(
+                    f"No Solution Found after {self.number_of_steps} steps!!")
                 break
 
             selected_node = self.remove_from_opened()
@@ -165,7 +158,7 @@ class Greedy:
             if len(new_nodes) > 0:
                 for new_node in new_nodes:
 
-                    new_node.heuristic_value = self.bangkok_distance(new_node, self.target)
+                    new_node.heuristic_value = self.distance(new_node, self.target)
                     if new_node not in self.closed and new_node not in self.opened:
                         new_node.parent = selected_node
                         self.insert_to_list("open", new_node)
@@ -212,9 +205,10 @@ def main():
 
     # Execute the algorithm
     alg = Greedy(graph, "S", "T")
-    path, path_length = alg.search()
-    print(" -> ".join(path))
-    print(f"Length of the path: {path_length}")
+    path = alg.search()
+    print(path)
+    # print(" -> ".join(path))
+    # print(f"Length of the path: {path_length}")
 
 
 if __name__ == '__main__':
