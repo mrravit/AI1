@@ -52,7 +52,6 @@ class Node:
         """
             Define which node, between current node and other node, has the greater value.
             Represent the other node with which the current node is compared.
-            
         """
         if isinstance(other, Node):
             if self.heuristic_value > other.heuristic_value:
