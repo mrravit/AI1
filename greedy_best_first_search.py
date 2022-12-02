@@ -1,4 +1,14 @@
 class Node:
+    """
+    This class used to represent each Vertex in the graph.
+    value : str
+            Represent the value of the node.
+        x : int
+            Represent the x-coordinate of the node.
+        y : int
+            Represent the y-coordinate of the node.
+    """
+
     def __init__(self, value, cordinates, neighbors=None):
         self.value = value
         self.x = cordinates[0]
@@ -11,14 +21,25 @@ class Node:
         self.parent = None
 
     def has_neighbors(self):
+        """
+            Return True if the current node is connected with at least another node.
+            Otherwise return false
+        """
         if len(self.neighbors) == 0:
             return False
         return True
 
     def number_of_neighbors(self):
+        """
+            Return the number of nodes with which the current node is connected.
+        """
         return len(self.neighbors)
 
     def add_neighbor(self, neighbor):
+        """
+            Add a new node to the neighbor list. In other words create a new connection between the
+            current node and the neighbor.
+        """
         self.neighbors.append(neighbor)
 
     def extend_node(self):
@@ -28,6 +49,11 @@ class Node:
         return children
 
     def __gt__(self, other):
+        """
+            Define which node, between current node and other node, has the greater value.
+            Represent the other node with which the current node is compared.
+            
+        """
         if isinstance(other, Node):
             if self.heuristic_value > other.heuristic_value:
                 return True
@@ -36,6 +62,9 @@ class Node:
             return self.value > other.value
 
     def __eq__(self, other):
+        """
+            Define if current node and other node are equal, checking their values. 
+        """
         if isinstance(other, Node):
             return self.value == other.value
         return self.value == other
@@ -52,15 +81,24 @@ class Graph:
             self.nodes = nodes
 
     def add_node(self, node):
+        """
+            Add a new node (vertex) in the graph.
+        """
         self.nodes.append(node)
 
     def find_node(self, value):
+        """
+            Return True if the node with the given value exist in the graph. Otherwise it return False.
+        """
         for node in self.nodes:
             if node.value == value:
                 return node
         return None
 
     def add_edge(self, value1, value2, weight=1):
+        """
+            Add a new edge between the two given nodes.
+        """
         node1 = self.find_node(value1)
         node2 = self.find_node(value2)
 
@@ -77,8 +115,8 @@ class Graph:
         node_one = self.find_node(node_one)
         node_two = self.find_node(node_two)
 
-        for neighboor in node_one.neighbors:
-            if neighboor[0].value == node_two.value:
+        for neighbor in node_one.neighbors:
+            if neighbor[0].value == node_two.value:
                 return True
         return False
 
@@ -99,15 +137,25 @@ class Greedy:
         self.number_of_steps = 0
 
     def distance(self, node1, node2):
+        """
+            Calculate and return the manhattan_distance between the two given nodes.
+        """
         return abs(node1.x - node2.x) + abs(node1.y - node2.y)
 
     def insert_to_list(self, list_category, node):
+        """
+            Insert a node in the proper list (opened or closed) according to list_category.
+        """
         if list_category == "open":
             self.opened.append(node)
         else:
             self.closed.append(node)
 
     def remove_from_opened(self):
+        """
+            Remove the node with the smallest heuristic value from the opened list.
+            Then add the removed node to the closed list.
+        """
         self.opened.sort()
         node = self.opened.pop(0)
         # print(node)
@@ -115,6 +163,9 @@ class Greedy:
         return node
 
     def opened_is_empty(self):
+        """
+            Check if the the list opened is empty, so no solution found.
+        """
         return len(self.opened) == 0
 
     def get_old_node(self, node_value):
@@ -124,6 +175,9 @@ class Greedy:
         return None
 
     def calculate_path(self, target_node):
+        """
+            Calculate and return the path (solution) of the problem.
+        """
         path = [target_node.value]
         node = target_node.parent
         while True:
@@ -136,6 +190,10 @@ class Greedy:
 
     def search(self):
         # Add the starting point to opened list
+        """
+        Main algorithm. Search for a solution in the solution space of the problem
+        Stops if the opened list is empty, so no solution found or if it find a solution. 
+        """
         self.opened.append(self.start)
 
         while True:
