@@ -134,7 +134,7 @@ class Greedy:
         self.closed = []
         self.number_of_steps = 0
 
-    def distance(self, node1, node2):
+    def get_distance(self, node1, node2):
         """
             Calculate and return the manhattan_distance between the two given nodes.
         """
