@@ -43,7 +43,6 @@ def path_h_cost(path):
     return last_node, h_cost
 
 
-
 def greedy_best_first_search(graph, start, goal):
     visited = []
     queue = [[(start, 0)]]
