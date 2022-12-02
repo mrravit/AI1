@@ -8,7 +8,6 @@ class Node:
         y : int
             Represent the y-coordinate of the node.
     """
-
     def __init__(self, value, cordinates, neighbors=None):
         self.value = value
         self.x = cordinates[0]
