@@ -162,7 +162,7 @@ class Greedy:
 
     def opened_is_empty(self):
         """
-            Check if the the list opened is empty, so no solution found.
+            Check if the list opened is empty, so no solution found.
         """
         return len(self.opened) == 0
 
