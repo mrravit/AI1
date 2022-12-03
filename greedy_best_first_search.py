@@ -136,7 +136,7 @@ class Greedy:
 
     def get_distance(self, node1, node2):
         """
-            Calculate and return the manhattan_distance between the two given nodes.
+            Calculate and return the distance between the two given nodes.
         """
         return abs(node1.x - node2.x) + abs(node1.y - node2.y)
 
@@ -214,7 +214,7 @@ class Greedy:
             if len(new_nodes) > 0:
                 for new_node in new_nodes:
 
-                    new_node.heuristic_value = self.distance(new_node, self.target)
+                    new_node.heuristic_value = self.get_distance(new_node, self.target)
                     if new_node not in self.closed and new_node not in self.opened:
                         new_node.parent = selected_node
                         self.insert_to_list("open", new_node)
@@ -269,6 +269,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# S -> B -> E -> F -> G -> I -> M -> T
-# Length of the path: 8
+    
